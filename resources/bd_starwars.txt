@@ -1,0 +1,332 @@
+
+---------------------------------------DDO-------------------------------------------
+
+
+CREATE DATABASE STARWARS;
+
+
+CREATE TABLE ROLE(
+ID_ROLE INTEGER PRIMARY KEY,
+NAME VARCHAR(15) 
+);
+
+CREATE TABLE PLANET(
+ID_PLANET INTEGER PRIMARY KEY,
+NAME VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE PERSON (
+    ID_PERSON VARCHAR(15) PRIMARY KEY,
+    NAME VARCHAR(50) NOT NULL,
+    LASTNAME VARCHAR(50) NOT NULL,
+    ID_ROLE INTEGER,
+    FOREIGN KEY (ID_ROLE) REFERENCES ROLE(ID_ROLE)
+);
+
+CREATE TABLE MOVIE (
+ID_MOVIE VARCHAR(15) PRIMARY KEY,
+NAME VARCHAR(40) NOT NULL,
+OPENING_CRAWL VARCHAR(100) NOT NULL,
+RELEASE_YEAR INTEGER NOT NULL,
+FAN_SCORE INTEGER NOT NULL,
+ID_DIRECTOR VARCHAR(15) NOT NULL,
+ID_PRODUCER VARCHAR(15) NOT NULL,
+FOREIGN KEY (ID_DIRECTOR) REFERENCES PERSON(ID_PERSON),
+FOREIGN KEY (ID_PRODUCER) REFERENCES PERSON(ID_PERSON)
+);
+
+CREATE TABLE MOVIE_PERSON(
+ID_MOVIE VARCHAR(15) REFERENCES MOVIE(ID_MOVIE),
+ID_PERSON VARCHAR(15) REFERENCES PERSON(ID_PERSON),
+PRIMARY KEY (ID_MOVIE, ID_PERSON)
+);
+
+CREATE TABLE MOVIE_PLANET(
+ID_MOVIE VARCHAR(15) REFERENCES MOVIE(ID_MOVIE),
+ID_PLANET INTEGER REFERENCES PLANET(ID_PLANET),
+PRIMARY KEY(ID_MOVIE, ID_PLANET)
+);
+
+
+
+---------------------------------------DDO-------------------------------------------
+
+
+INSERT INTO ROLE(ID_ROLE, NAME) VALUES 
+(1, 'Personaje'),
+(2, 'Director'),
+(3, 'Productor');
+
+INSERT INTO PERSON(ID_PERSON, NAME, LASTNAME, ID_ROLE) VALUES
+('PER1', 'R2-DT', NULL, 1),
+('PER2', 'C-3PO', NULL, 1),
+('PER3', 'Luke', 'Skywalker', 1),
+('PER4', 'Leia', 'Organa', 1),
+('PER5', 'Chewbacca', NULL, 1),
+('PER6', 'Obi-Wan', 'Kenobi', 1),
+('PER7', 'Anakin', 'Skywalker', 1),
+('PER8', 'Yoda', null, 1),
+('PER9', 'Emperor', 'Palpatine', 1),
+('PER10', 'Han', 'Solo', 1),
+('PER11', 'Boba', 'Fett', 1),
+('PER12', 'Padmé', 'Amidala', 1),
+('PER13', 'Jar Jar', 'Binks', 1),
+('PER14', 'Mace', 'Windu', 1),
+('PER15', 'Jabba', 'the Hutt', 1),
+('PER16', 'Lando', 'Calrissian', 1),
+('PER17', 'Rey', 'Skywalker', 1),
+('PER18', 'Finn', NULL, 1),
+('PER19', 'Poe', 'Dameron', 1),
+('PER20', 'Ben', 'Solo', 1),
+('PER21', 'BB-8', NULL, 1),
+('PER22', 'General', 'Hux', 1),
+('PER23', 'Count', 'Dooku', 1),
+('PER24', 'Captain', 'Phasma', 1),
+('PER25', 'Snoke', NULL, 1),
+('PER26', 'Rose', 'Tico', 1),
+('PER27', 'Qui-Gon', 'Jinn', 1),
+('PER28', 'Darth', 'Maul', 1),
+('PER29', 'Jango', 'Fett', 1),
+('PER30', 'General', 'Grievous', 1),
+('PER31', 'D-0', NULL, 1),
+('PER32', 'Zorii', 'Bliss', 1),
+('PER33', 'Jannah', NULL, 1),
+('DIR1', 'George Walton', 'Lucas JR', 2),
+('DIR2', 'Irvin', 'Kershner', 2),
+('DIR3', 'Richard', 'Marquand', 2),
+('DIR4', 'Jeffrey Jacob', 'Abrams', 2),
+('DIR5', 'Rian', 'Johnson', 2),
+('PROD1', 'Rick', 'McCallum', 3),
+('PROD2', 'Gary', 'Kurtz', 3),
+('PROD3', 'Howard', 'Kazanjian', 3),
+('PROD4', 'Kathleen', 'Kennedy', 3);
+ 
+INSERT INTO PLANET (ID_PLANET, NAME) VALUES
+(1, 'Tatooine'),
+(2, 'Alderaan'),
+(3, 'Yavin IV'),
+(4, 'Hoth'),
+(5, 'Dagobah'),
+(6, 'Bespin'),
+(7, 'Endor'),
+(8, 'Naboo'),
+(9, 'Coruscant'),
+(10, 'Kamino'),
+(11, 'Geonosis'),
+(12, 'Utapau'),
+(13, 'Mustafar'),
+(14, 'Kashyyyk'),
+(15, 'Polis Massa'),
+(16, 'Felucia'),
+(17, 'Cato Neimoidia'),
+(18, 'Mygeeto'),
+(19, 'Saleucami'),
+(20, 'Dantooine'),
+(21, 'Jakku'),
+(22, 'Ahch-To'),
+(23, 'Crait'),
+(24, 'Pasaana'),
+(25, 'Kef Bir'),
+(26, 'Exegol'),
+(27, 'Starkiller'),
+(28, 'Takodana');
+
+
+INSERT INTO MOVIE (ID_MOVIE, NAME, OPENING_CRAWL, RELEASE_YEAR, FAN_SCORE, ID_DIRECTOR, ID_PRODUCER) VALUES
+('Episode_I', 'The Phantom Menace', 'The Galactic Republic is in turmoil. The taxation of trade routes to outlying star systems is in dispute.
+Hoping to resolve the matter with a blockade of deadly cruisers, the greedy Trade Federation has stopped all shipments to the small planet Naboo.
+While the Congress of the Republic endlessly debates this alarming chain of events, the Supreme Chancellor has secretly dispatched two Jedi Knights, guardians of peace and justice in the galaxy, to resolve the conflict...', 1999, 59, 'DIR1', 'PROD1'),
+
+('Episode_II', 'Attack of the Clones', 'There is unrest in the Galactic Senate. Thousands of solar systems have declared their intention to leave the Republic.
+This separatist movement, led by the mysterious Count Dooku, has made it difficult for the limited number of Jedi Knights to maintain peace and order in the galaxy.
+Senator Amidala, the former queen of Naboo, returns to the Galactic Senate to cast her vote on the critical issue of creating a REPUBLIC ARMY to assist the overwhelmed Jedi...', 2002, 56, 'DIR1', 'PROD1'),
+
+('Episode_III', 'Revenge of the Sith', 'War! The Republic is crumbling under attacks by the ruthless Sith Lord, Count Dooku. There are heroes on both sides. Evil is everywhere.
+In a surprising move, the diabolical droid leader, General Grievous, has swept into the Republic capital and kidnapped Chancellor Palpatine, leader of the Galactic Senate.
+As the separatist droid army attempts to flee the besieged capital with their valuable hostage, two Jedi Knights lead a desperate mission to rescue the captive Chancellor…', 2005, 41, 'DIR1', 'PROD1'),
+
+('Episode_IV', 'A New Hope', 'It is a period of civil wars in the galaxy. A brave alliance of underground freedom fighters has challenged the tyranny and oppression of the mighty GALACTIC EMPIRE.
+Striking from a hidden fortress among the billions of stars in the galaxy, rebel spaceships have won their first victory in a battle against the powerful Imperial Starfleet. The EMPIRE fears that another defeat could lead a thousand more solar systems to join the rebellion, and Imperial control over the galaxy would be lost forever.
+To crush the rebellion once and for all, the EMPIRE is constructing a sinister new battle station. Powerful enough to destroy an entire planet, its completion means certain doom for the champions of freedom.', 1977, 96, 'DIR1', 'PROD2'),
+
+('Episode_V', 'The Empire Strikes Back', 'It is a period of civil war.
+Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire.
+During the battle, rebel spies managed to steal secret plans to the Empires ultimate weapon, the DEATH STAR, an armored space station
+with enough power to destroy an entire planet.
+Pursued by the Empires sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save
+her people and restore freedom to the galaxy…', 1980, 87, 'DIR2','PROD2'),
+
+('Episode_VI', 'Return of the Jedi', 'The Rebellion faces dark times. The evil Galactic Empire prevails over all that remains of the system, and with it has sown fear once again.
+Under the shadow of Darth Vaders return and the Emperors threats, the hero Luke Skywalker has faced his toughest trial: saving his father from the darkness that consumes him.
+The rebels, united, prepare for a final decisive assault that will lead to an epic battle for the liberation of the galaxy and the fall of the Emperors throne…', 1983, 94, 'DIR3', 'PROD3'),
+
+('Episode_VII', 'The Force Awakens', 'Luke Skywalker has vanished. In his absence, the sinister FIRST ORDER has risen from the ashes of the Empire and will not rest until Skywalker, the last Jedi, has been destroyed.
+With the support of the REPUBLIC, General Leia Organa leads a brave RESISTANCE. She desperately searches for her brother Luke in order to gain his help to
+restore peace and justice to the galaxy.
+Leia has sent her boldest pilot on a secret mission to Jakku, where an old ally has discovered a clue to Lukes whereabouts...', 2015, 84, 'DIR4', 'PROD4'),
+
+('Episode_VIII', 'The Last Jedi', 'The FIRST ORDER reigns.
+After destroying the peaceful Republic, Supreme Leader Snoke now sends his ruthless legions to seize military control of the galaxy.
+Only General Leia Organa and her group of RESISTANCE fighters stand against the growing tyranny, convinced that Jedi Master Luke Skywalker will return
+and restore the spark of hope in the fight.
+But the Resistance has been exposed. As the First Order heads toward the rebel base, the brave heroes organize a desperate escape…', 2017, 55, 'DIR5', 'PROD4'),
+
+('Episode_IX', 'The Rise of Skywalker','The galaxy has heard a mysterious transmission: a threat of REVENGE spoken in the relentless voice of the late Emperor Palpatine.
+GENERAL LEIA ORGANA sends undercover agents to gather intelligence, while REY —the last hope of the Jedi— trains to face the fearsome FIRST ORDER.
+And in the shadows, Supreme Leader KYLO REN rages in his search for the Emperors ghost, determined to destroy any threat to his power...', 2019, 86, 'DIR4', 'PROD4');
+
+
+INSERT INTO MOVIE_PLANET(ID_MOVIE, ID_PLANET) VALUES
+('Episode_I', 1),
+('Episode_I', 8),
+('Episode_I', 9),
+('Episode_II', 1),
+('Episode_II', 8),
+('Episode_II', 9),
+('Episode_II', 10),
+('Episode_II', 11),
+('Episode_III', 9),
+('Episode_III', 12),
+('Episode_III', 13),
+('Episode_III', 14),
+('Episode_III', 15),
+('Episode_III', 16),
+('Episode_III', 17),
+('Episode_III', 18),
+('Episode_III', 19),
+('Episode_IV', 1),
+('Episode_IV', 2),
+('Episode_IV', 3),
+('Episode_V', 4),
+('Episode_V', 5),
+('Episode_V', 6),
+('Episode_VI', 1),
+('Episode_VI', 5),
+('Episode_VI', 7),
+('Episode_VI', 25),
+('Episode_VII', 21),
+('Episode_VII', 27),
+('Episode_VII', 28),
+('Episode_VII', 1),
+('Episode_VIII', 22),
+('Episode_VIII', 23),
+('Episode_IX', 7),
+('Episode_IX', 24),
+('Episode_IX', 26);
+
+INSERT INTO MOVIE_PERSON(ID_MOVIE, ID_PERSON) VALUES
+('Episode_I', 'PER1'),
+('Episode_I', 'PER2'),
+('Episode_I', 'PER6'),
+('Episode_I', 'PER7'),
+('Episode_I', 'PER8'),
+('Episode_I', 'PER9'),
+('Episode_I', 'PER12'),
+('Episode_I', 'PER13'),
+('Episode_I', 'PER14'),
+('Episode_I', 'PER27'),
+('Episode_I', 'PER28'),
+('Episode_II', 'PER1'),
+('Episode_II', 'PER2'),
+('Episode_II', 'PER6'),
+('Episode_II', 'PER7'),
+('Episode_II', 'PER8'),
+('Episode_II', 'PER9'),
+('Episode_II', 'PER11'),
+('Episode_II', 'PER12'),
+('Episode_II', 'PER13'),
+('Episode_II', 'PER14'),
+('Episode_II', 'PER23'),
+('Episode_II', 'PER28'),
+('Episode_II', 'PER29'),
+('Episode_III', 'PER1'),
+('Episode_III', 'PER2'),
+('Episode_III', 'PER5'),
+('Episode_III', 'PER6'),
+('Episode_III', 'PER7'),
+('Episode_III', 'PER8'),
+('Episode_III', 'PER9'),
+('Episode_III', 'PER12'),
+('Episode_III', 'PER13'),
+('Episode_III', 'PER14'),
+('Episode_III', 'PER23'),
+('Episode_III', 'PER30'),
+('Episode_IV', 'PER1'),
+('Episode_IV', 'PER2'),
+('Episode_IV', 'PER3'),
+('Episode_IV', 'PER4'),
+('Episode_IV', 'PER5'),
+('Episode_IV', 'PER6'),
+('Episode_IV', 'PER10'),
+('Episode_IV', 'PER15'),
+('Episode_IV', 'PER31'),
+('Episode_IV', 'PER32'),
+('Episode_IV', 'PER33'),
+('Episode_V', 'PER1'),
+('Episode_V', 'PER2'),
+('Episode_V', 'PER3'),
+('Episode_V', 'PER4'),
+('Episode_V', 'PER5'),
+('Episode_V', 'PER8'),
+('Episode_V', 'PER9'),
+('Episode_V', 'PER10'),
+('Episode_V', 'PER11'),
+('Episode_V', 'PER16'),
+('Episode_VI', 'PER1'),
+('Episode_VI', 'PER2'),
+('Episode_VI', 'PER3'),
+('Episode_VI', 'PER4'),
+('Episode_VI', 'PER5'),
+('Episode_VI', 'PER8'),
+('Episode_VI', 'PER9'),
+('Episode_VI', 'PER10'),
+('Episode_VI', 'PER11'),
+('Episode_VI', 'PER15'),
+('Episode_VI', 'PER16'),
+('Episode_VII', 'PER1'),
+('Episode_VII', 'PER2'),
+('Episode_VII', 'PER3'),
+('Episode_VII', 'PER4'),
+('Episode_VII', 'PER5'),
+('Episode_VII', 'PER10'),
+('Episode_VII', 'PER15'),
+('Episode_VII', 'PER17'),
+('Episode_VII', 'PER18'),
+('Episode_VII', 'PER19'),
+('Episode_VII', 'PER20'),
+('Episode_VII', 'PER21'),
+('Episode_VII', 'PER22'),
+('Episode_VII', 'PER24'),
+('Episode_VII', 'PER25'),
+('Episode_VIII', 'PER1'),
+('Episode_VIII', 'PER2'),
+('Episode_VIII', 'PER3'),
+('Episode_VIII', 'PER4'),
+('Episode_VIII', 'PER5'),
+('Episode_VIII', 'PER8'),
+('Episode_VIII', 'PER10'),
+('Episode_VIII', 'PER17'),
+('Episode_VIII', 'PER18'),
+('Episode_VIII', 'PER19'),
+('Episode_VIII', 'PER20'),
+('Episode_VIII', 'PER21'),
+('Episode_VIII', 'PER22'),
+('Episode_VIII', 'PER24'),
+('Episode_VIII', 'PER25'),
+('Episode_VIII', 'PER26'),
+('Episode_IX', 'PER1'),
+('Episode_IX', 'PER2'),
+('Episode_IX', 'PER3'),
+('Episode_IX', 'PER4'),
+('Episode_IX', 'PER5'),
+('Episode_IX', 'PER9'),
+('Episode_IX', 'PER16'),
+('Episode_IX', 'PER17'),
+('Episode_IX', 'PER18'),
+('Episode_IX', 'PER19'),
+('Episode_IX', 'PER20'),
+('Episode_IX', 'PER21'),
+('Episode_IX', 'PER22'),
+('Episode_IX', 'PER25'),
+('Episode_IX', 'PER26');
+
