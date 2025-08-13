@@ -26,4 +26,4 @@ git clone https://github.com/RuenesMarcelo/starwars_api.git
 
 ## Para ejecución de pruebas de integración, ingresar a la carpeta STARWARS_API del proyecto mediante terminal y parasu ejecución:
 
-## Ingresar comando "api/tests.py"
+## Ingresar comando "pytest api/tests.py"
