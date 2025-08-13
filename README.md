@@ -12,7 +12,7 @@ Api del universo Starwars con información sobre películas, personaje y planeta
 
 ## Instalación 
 
-### Colanar Repositorio:
+### Clonar Repositorio:
 
 ```bash
 git clone https://github.com/RuenesMarcelo/starwars_api.git
